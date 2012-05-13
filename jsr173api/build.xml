@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<project name="jsr173api" basedir="." default="dist">
+
+	<!-- create a distribution package -->
+	<target name="dist">
+		
+		<!-- compile files -->
+		<mkdir dir="temp" />
+		<javac srcdir="src" debug="true" destdir="temp" source="1.5" target="1.5"/>
+		
+		<!-- creates binary jar -->
+		<delete file="jsr173_1.0_api.jar"/>
+
+        <jar jarfile="jsr173_1.0_api.jar" compress="false">
+			<fileset dir="temp" />
+			<fileset dir="src">
+				<patternset>
+					<include name="**/*.properties" />
+					<include name="**/*.rxm"/>
+					<include name="**/*.dtd"/>
+					<include name="**/*.rng"/>
+					<include name="**/*.mod"/>
+				</patternset>
+			</fileset>
+		</jar>
+		<delete dir="temp" />
+	</target>
+</project>
