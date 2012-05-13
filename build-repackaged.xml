@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project basedir="." default="build" name="JAXB 2.x">
+    <property environment="env"/>
+    <property name="JUNIT_HOME" value="../../../../eclipse-jee-indigo-SR1-win32-x86_64/eclipse/plugins/org.junit_3.8.2.v3_8_2_v20100427-1100/"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.5"/>
+    <property name="source" value="1.5"/>
+    <path id="JAXB 2.x.classpath">
+        <pathelement location="build/classes"/>
+        <pathelement location="tools/lib/util/jing.jar"/>
+        <pathelement location="tools/lib/util/relaxngcc.jar"/>
+        <pathelement location="tools/lib/util/xercesImpl.jar"/>
+        <pathelement location="tools/lib/redist/activation.jar"/>
+        <pathelement location="tools/lib/util/ant.jar"/>
+        <pathelement location="tools/lib/rebundle/compiler/xsom.jar"/>
+        <pathelement location="tools/lib/rebundle/compiler/rngom.jar"/>
+        <pathelement location="tools/lib/rebundle/runtime/isorelax.jar"/>
+        <pathelement location="tools/lib/rebundle/compiler/resolver.jar"/>
+        <pathelement location="tools/lib/rebundle/runtime2/txw2.jar"/>
+        <pathelement location="tools/lib/util/sjsxp.jar"/>
+        <pathelement location="tools/lib/rebundle/compiler/relaxngDatatype.jar"/>
+        <pathelement location="${JUNIT_HOME}/junit.jar"/>
+        <pathelement location="tools/lib/rebundle/compiler/istack-commons-tools.jar"/>
+        <pathelement location="tools/lib/rebundle/runtime2/istack-commons-runtime.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="build/classes"/>
+        <copy includeemptydirs="false" todir="build/classes">
+            <fileset dir="jaxb-api-src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy includeemptydirs="false" todir="build/classes">
+            <fileset dir="jsr173api/src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy includeemptydirs="false" todir="build/classes">
+            <fileset dir="runtime/src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy includeemptydirs="false" todir="build/classes">
+            <fileset dir="runtime/build/src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="build/classes"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+
+        <javac debug="true" debuglevel="${debuglevel}" destdir="build/classes" source="${source}" target="${target}">
+            <src path="jsr173api/src"/>
+            <classpath refid="JAXB 2.x.classpath"/>
+        </javac>
+        
+        <javac debug="true" debuglevel="${debuglevel}" destdir="build/classes" source="${source}" target="${target}">
+            <src path="jaxb-api-src"/>
+            <classpath refid="JAXB 2.x.classpath"/>
+        </javac>
+        
+        <javac debug="true" debuglevel="${debuglevel}" destdir="build/classes" source="${source}" target="${target}">
+            <src path="runtime/src"/>
+            <src path="runtime/build/src"/>
+            <classpath refid="JAXB 2.x.classpath"/>
+        </javac>
+        
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    
+    <target name="dist"  depends="clean, build-project" >
+				
+        <mkdir dir="${dist}"/>
+				
+		<jar destfile="${dist}/ae-jaxb-2.2.5.jar" basedir="./build/classes"/>		
+		
+    </target>	
+    
+</project>
