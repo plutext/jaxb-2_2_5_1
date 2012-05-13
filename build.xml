@@ -363,7 +363,7 @@
           </delete>
 
           <!-- clean sub-projects -->
-          <ant dir="runtime"            target="clean" />
+          <!-- <ant dir="runtime"            target="clean" />  -->
           <ant dir="runtime-fi"         target="clean" />
           <ant dir="runtime-staxex"     target="clean" />
           <ant dir="runtime-deprecated" target="clean" />
@@ -372,6 +372,7 @@
           <ant dir="apgen"              target="clean" />
           <ant dir="reflection"         target="clean" />
           <ant dir="osgi"               target="clean" />
+          <ant dir="samples"               target="clean" />
         </parallel>
 
         <antcall target="docs.clean" />
@@ -744,12 +745,12 @@
 
         <echo message="building jaxb-api"/>
         <build.jar.from.srczip jar="${external.dir}/jaxb-api/jaxb-api.jar" srczip="tools/lib/redist/jaxb-api-src.zip" unzipdir="${external.dir}" srcdir="jaxb-api" cp="${maven.repo.local}/${activation.mvn.path}:${maven.repo.local}/${jsr173api.mvn.path}"/>
-        <mvn.publish.local jar="${external.dir}/jaxb-api/jaxb-api.jar" mvngroup="javax.xml.bind" mvnartid="jaxb-api" mvnversion="${jaxb-api.version}"/>
+        <mvn.publish.local jar="${external.dir}/jaxb-api/jaxb-api.jar" mvngroup="ae.javax.xml.bind" mvnartid="jaxb-api" mvnversion="${jaxb-api.version}"/>
         <copy file="${maven.repo.local}/${jaxb-api.mvn.path}" tofile="${jaxb.root}/tools/lib/redist/jaxb-api.jar"/>
 
         <echo message="building jaxb-api-osgi"/>
         <build.jar.from.srczip jar="${external.dir}/jaxb-api-osgi/jaxb-api-osgi.jar" srczip="tools/lib/osgi/jaxb-api-osgi-sources.jar" unzipdir="${external.dir}" srcdir="jaxb-api-osgi" cp="${maven.repo.local}/${activation.mvn.path}:${maven.repo.local}/${jsr173api.mvn.path}"/>
-        <mvn.publish.local jar="${external.dir}/jaxb-api-osgi/jaxb-api-osgi.jar" mvngroup="javax.xml.bind" mvnartid="jaxb-api-osgi" mvnversion="${jaxb-api.version}"/>
+        <mvn.publish.local jar="${external.dir}/jaxb-api-osgi/jaxb-api-osgi.jar" mvngroup="ae.javax.xml.bind" mvnartid="jaxb-api-osgi" mvnversion="${jaxb-api.version}"/>
         <copy file="${maven.repo.local}/${jaxb-api-osgi.mvn.path}" tofile="${jaxb.root}/tools/lib/osgi/jaxb-api-osgi.jar"/>
 
         <exec executable="ant" dir="${jaxb.root}" failonerror="true" newenvironment="false" >
@@ -759,9 +760,9 @@
             <arg line="${cpath}"/>
         </exec>
 
-        <mvn.publish.local jar="${jaxb.root}/dist/lib/jaxb-impl.jar" mvngroup="com.sun.xml.bind" mvnartid="jaxb-impl" mvnversion="${jaxb.version}"/>
-        <mvn.publish.local jar="${jaxb.root}/dist/lib/jaxb-xjc.jar" mvngroup="com.sun.xml.bind" mvnartid="jaxb-xjc" mvnversion="${jaxb.version}"/>
-        <mvn.publish.local jar="${jaxb.root}/dist/lib/jaxb1-impl.jar" mvngroup="com.sun.xml.bind" mvnartid="jaxb1-impl" mvnversion="${jaxb.version}"/>
+        <mvn.publish.local jar="${jaxb.root}/dist/lib/jaxb-impl.jar" mvngroup="ae.com.sun.xml.bind" mvnartid="jaxb-impl" mvnversion="${jaxb.version}"/>
+        <mvn.publish.local jar="${jaxb.root}/dist/lib/jaxb-xjc.jar" mvngroup="ae.com.sun.xml.bind" mvnartid="jaxb-xjc" mvnversion="${jaxb.version}"/>
+        <mvn.publish.local jar="${jaxb.root}/dist/lib/jaxb1-impl.jar" mvngroup="ae.com.sun.xml.bind" mvnartid="jaxb1-impl" mvnversion="${jaxb.version}"/>
 
         <property name="cpath" value="-Dcpath.fromsource=${maven.repo.local}/com/sun/codemodel/codemodel-annotation-compiler/2.1-SNAPSHOT/codemodel-annotation-compiler-2.1-SNAPSHOT.jar:${maven.repo.local}/${relaxngcc.mvn.path}:${maven.repo.local}/${fi.mvn.path}:${maven.repo.local}/${jsr173api.mvn.path}:${maven.repo.local}/${activation.mvn.path}:${maven.repo.local}/${stax-ex.mvn.path}:${maven.repo.local}/${resolver.mvn.path}"/>
         <exec executable="ant" dir="${jaxb.root}/osgi" failonerror="true" newenvironment="false" >
@@ -771,7 +772,7 @@
             <arg line="${cpath}"/>
             <arg line="-Dosgi.build.rt=osgi/build"/>
         </exec>
-        <mvn.publish.local jar="${jaxb.root}/osgi/build/jaxb-osgi.jar" mvngroup="com.sun.xml.bind" mvnartid="jaxb-osgi" mvnversion="${jaxb.version}"/>
+        <mvn.publish.local jar="${jaxb.root}/osgi/build/jaxb-osgi.jar" mvngroup="ae.com.sun.xml.bind" mvnartid="jaxb-osgi" mvnversion="${jaxb.version}"/>
 
     </target>
 
@@ -819,7 +820,7 @@
               <!-- JAXB 2.0 runtime jar-->
               <!-- generate jaxb-impl.jar for 2.0 runtime -->
               <sequential>
-                  <createManifest file="${runtime.root}/build/manifest.rt" extensionName="com.sun.xml.bind" />
+                  <createManifest file="${runtime.root}/build/manifest.rt" extensionName="ae.com.sun.xml.bind" />
                   <manifest mode="update" file="${runtime.root}/build/manifest.rt">
                     <attribute name="Class-Path" value="jaxb-api.jar activation.jar jsr173_1.0_api.jar jaxb1-impl.jar" /> <!-- added for JES4 script compatibility -->
                   </manifest>
@@ -838,7 +839,7 @@
               <!-- generate jaxb1-impl.jar for 1.0 runtime -->
               <!-- include the contents of the old jaxb-libs.jar -->
               <sequential>
-                  <createManifest file="${runtime.root}/build/manifest.rt1" extensionName="com.sun.xml.bind" />
+                  <createManifest file="${runtime.root}/build/manifest.rt1" extensionName="ae.com.sun.xml.bind" />
                   <mkdir dir="${jaxb.root}/build/jaxb-1-impl-rejar"/>
                   <unzip dest="${jaxb.root}/build/jaxb-1-impl-rejar">
                     <fileset dir="${jaxb.libs.runtime}" includes="*.jar" />
