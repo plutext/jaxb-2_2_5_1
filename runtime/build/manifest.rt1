@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Specification-Title: Java Architecture for XML Binding
+Specification-Version: 2.2.6
+Specification-Vendor: Oracle Corporation
+Implementation-Title: JAXB Reference Implementation 
+Implementation-Version: 2.2.5-1
+Implementation-Vendor: Oracle Corporation
+Implementation-Vendor-Id: com.sun
+Extension-Name: com.sun.xml.bind
+Build-Id: 05/13/2012 10:05 AM(jharrop)

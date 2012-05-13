@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.8.2
+Created-By: 1.6.0_27-b07 (Sun Microsystems Inc.)
+Specification-Title: Java Architecture for XML Binding
+Specification-Version: 2.2.6
+Specification-Vendor: Oracle Corporation
+Implementation-Title: JAXB Reference Implementation 
+Implementation-Version: 2.2.5-1
+Implementation-Vendor: Oracle Corporation
+Implementation-Vendor-Id: com.sun
+Extension-Name: com.sun.xml.bind
+Build-Id: 05/13/2012 10:05 AM(jharrop)
+Class-Path: jaxb-api.jar activation.jar jsr173_1.0_api.jar jaxb1-impl.
+ jar
+
