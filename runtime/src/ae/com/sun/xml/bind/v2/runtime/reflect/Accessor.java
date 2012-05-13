@@ -182,7 +182,7 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
             java.util.Calendar.class,
             javax.xml.datatype.Duration.class,
             javax.xml.datatype.XMLGregorianCalendar.class,
-            java.awt.Image.class,
+//            java.awt.Image.class,
             javax.activation.DataHandler.class,
             javax.xml.transform.Source.class,
             java.util.Date.class,

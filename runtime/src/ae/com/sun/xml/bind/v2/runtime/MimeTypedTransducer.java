@@ -40,7 +40,7 @@
 
 package ae.com.sun.xml.bind.v2.runtime;
 
-import java.awt.*;
+//import java.awt.*;
 import java.io.IOException;
 
 import javax.activation.MimeType;

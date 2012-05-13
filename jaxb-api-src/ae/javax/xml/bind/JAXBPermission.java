@@ -40,7 +40,7 @@
 
 package ae.javax.xml.bind;
 
-import java.awt.*;
+//import java.awt.*;
 import java.security.BasicPermission;
 
 /**

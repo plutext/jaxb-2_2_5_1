@@ -550,7 +550,7 @@ class ContextFinder {
      * <p>
      * For this reason, we have to hard-code the class name into the API.
      */
-    private static final String PLATFORM_DEFAULT_FACTORY_CLASS = "com.sun.xml.internal.bind.v2.ContextFactory";
+    private static final String PLATFORM_DEFAULT_FACTORY_CLASS = "ae.com.sun.xml.bind.v2.ContextFactory";
 
     /**
      * Loads the class, provided that the calling thread has an access to the class being loaded.
