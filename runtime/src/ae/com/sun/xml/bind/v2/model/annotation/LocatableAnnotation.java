@@ -68,7 +68,10 @@ public class LocatableAnnotation implements InvocationHandler, Locatable, Locati
      * {@link Locatable}.
      */
     public static <A extends Annotation> A create( A annotation, Locatable parentSourcePos ) {
-        if(annotation==null)    return null;
+        if(annotation==null)   {
+        	// System.err.println("Annotation was null");
+        	return null;
+        }
         Class<? extends Annotation> type = annotation.annotationType();
         if(quicks.containsKey(type)) {
             // use the existing proxy implementation if available
