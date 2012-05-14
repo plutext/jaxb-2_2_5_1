@@ -325,11 +325,16 @@ class ReferencePropertyInfoImpl<T,C,F,M>
         String nsUri = r.namespace();
 
         XmlSchema xs = reader().getPackageAnnotation( XmlSchema.class, parent.getClazz(), this );
-        if(xs!=null && xs.attributeFormDefault()== XmlNsForm.QUALIFIED) {
-            // JAX-RPC doesn't want the default namespace URI swapping to take effect to
-            // local "unqualified" elements. UGLY.
-            if(nsUri.length()==0)
-                nsUri = parent.builder.defaultNsUri;
+        if (xs==null) {
+        	System.err.println("RPI Couldn't read package annotation!");
+        } else {
+        	//System.err.println(xs.elementFormDefault().toString() );
+	        if(xs.attributeFormDefault()== XmlNsForm.QUALIFIED) {
+	            // JAX-RPC doesn't want the default namespace URI swapping to take effect to
+	            // local "unqualified" elements. UGLY.
+	            if(nsUri.length()==0)
+	                nsUri = parent.builder.defaultNsUri;
+	        }
         }
 
         return nsUri;

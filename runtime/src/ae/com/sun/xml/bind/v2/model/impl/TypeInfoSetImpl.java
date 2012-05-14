@@ -362,15 +362,19 @@ class TypeInfoSetImpl<T,C,F,M> implements TypeInfoSet<T,C,F,M> {
     public final XmlNsForm getElementFormDefault(String nsUri) {
         for (ClassInfoImpl<T, C, F, M> ci : beans().values()) {
             XmlSchema xs = reader.getPackageAnnotation( XmlSchema.class, ci.getClazz(), null );
-            if(xs==null)
+            if(xs==null) {
+            	System.err.println("TISI Couldn't read package annotation!");
                 continue;
-
+            }
+            
             if(!xs.namespace().equals(nsUri))
                 continue;
 
             XmlNsForm xnf = xs.elementFormDefault();
-            if(xnf!=XmlNsForm.UNSET)
+            if(xnf!=XmlNsForm.UNSET) {
+            	//System.err.println(xnf.toString() );
                 return xnf;
+            }
         }
         return XmlNsForm.UNSET;
     }
