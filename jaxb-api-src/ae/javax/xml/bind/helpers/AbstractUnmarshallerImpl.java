@@ -57,6 +57,7 @@ import ae.javax.xml.stream.XMLEventReader;
 import ae.javax.xml.stream.XMLStreamReader;
 
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMSource;
@@ -112,14 +113,31 @@ public abstract class AbstractUnmarshallerImpl implements Unmarshaller
     protected XMLReader getXMLReader() throws JAXBException {
         if(reader==null) {
             try {
+        		
                 SAXParserFactory parserFactory;
                 parserFactory = SAXParserFactory.newInstance();
+                
+                /* From http://developer.android.com/reference/javax/xml/parsers/SAXParserFactory.html 
+                	public static SAXParserFactory newInstance () returns Android's implementation of SAXParserFactory; 
+                	Unlike other Java implementations, this method does not consult system properties, property files, or the services API.
+                	(!!!)
+                */
+                
                 parserFactory.setNamespaceAware(true);
                 // there is no point in asking a validation because 
                 // there is no guarantee that the document will come with
                 // a proper schemaLocation.
                 parserFactory.setValidating(false);
-                reader = parserFactory.newSAXParser().getXMLReader();
+                
+                SAXParser sp = parserFactory.newSAXParser();
+                                
+                reader = sp.getXMLReader();
+
+                // sp.isNamespaceAware() returns true,
+                // so following is not strictly necessary:
+                reader.setFeature("http://xml.org/sax/features/namespaces", true); 
+                // The 'namespace-prefix' feature is not supported while the 'namespaces' feature is enabled.
+                reader.setFeature("http://xml.org/sax/features/namespace-prefixes", false);   // Android: note plural!             
             } catch( ParserConfigurationException e ) {
                 throw new JAXBException(e);
             } catch( SAXException e ) {
