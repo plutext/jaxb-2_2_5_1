@@ -48,6 +48,8 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
+import ae.javax.xml.bind.annotation.XmlSchema;
+
 /**
  * {@link AnnotationReader} that uses {@code java.lang.reflect} to
  * read annotations from class files.
@@ -103,6 +105,7 @@ public final class RuntimeInlineAnnotationReader extends AbstractInlineAnnotatio
     }
 
     public <A extends Annotation> A getClassAnnotation(Class<A> a, Class clazz, Locatable srcPos) {
+//    	System.err.println("Annotations on: " + a.getName() + ", " + clazz.getName() );
         return LocatableAnnotation.create(((Class<?>)clazz).getAnnotation(a),srcPos);
     }
 
@@ -113,19 +116,45 @@ public final class RuntimeInlineAnnotationReader extends AbstractInlineAnnotatio
     private final Map<Class<? extends Annotation>,Map<Package,Annotation>> packageCache =
             new HashMap<Class<? extends Annotation>,Map<Package,Annotation>>();
 
-    public <A extends Annotation> A getPackageAnnotation(Class<A> a, Class clazz, Locatable srcPos) {
-        Package p = clazz.getPackage();
-        if(p==null) return null;
+    
+	// Package annotations are not supported on Android: http://developer.android.com/reference/java/lang/Package.html,
+    // but XmlSchema annotation is critical to us
+    
+    private final static Map<Package, XmlSchema> packageXmlSchemaAnnotationsCache =
+            new HashMap<Package,XmlSchema>();
+    
+    public final static void cachePackageAnnotation(Package p, XmlSchema xmlSchema) {
+    	packageXmlSchemaAnnotationsCache.put(p, xmlSchema);
+    }
 
+    public <A extends Annotation> A getPackageAnnotation(Class<A> a, Class clazz, Locatable srcPos) {
+    	
+    	
+        Package p = clazz.getPackage();
+        if(p==null) {
+        	System.err.println("Couldn't getPackage for class " + clazz.getName() );
+        	return null;
+        }
+        
+        // Special Android handling
+        if (a == XmlSchema.class) {
+        	// for now..
+            Annotation anno = packageXmlSchemaAnnotationsCache.get(p);
+            if (anno==null) {
+            	System.err.println("No XmlSchema annotation found for " + p.getName() );
+            }
+            return (A)anno;
+        }
+        
         Map<Package,Annotation> cache = packageCache.get(a);
         if(cache==null) {
             cache = new HashMap<Package,Annotation>();
             packageCache.put(a,cache);
         }
 
-        if(cache.containsKey(p))
+        if(cache.containsKey(p)) {
             return (A)cache.get(p);
-        else {
+        } else {
             A ann = LocatableAnnotation.create(p.getAnnotation(a),srcPos);
             cache.put(p,ann);
             return ann;
