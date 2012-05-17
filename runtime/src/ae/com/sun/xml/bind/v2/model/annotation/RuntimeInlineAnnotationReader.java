@@ -155,9 +155,19 @@ public final class RuntimeInlineAnnotationReader extends AbstractInlineAnnotatio
         if(cache.containsKey(p)) {
             return (A)cache.get(p);
         } else {
-            A ann = LocatableAnnotation.create(p.getAnnotation(a),srcPos);
-            cache.put(p,ann);
-            return ann;
+            try {
+				A ann = LocatableAnnotation.create(p.getAnnotation(a),srcPos);
+				cache.put(p,ann);
+				return ann;
+			} catch (java.lang.UnsatisfiedLinkError e) {				
+				/*
+					On Android 4, getDeclaredAnnotations returns an empty array.
+					For Android 3, here we have to catch java.lang.UnsatisfiedLinkError				
+					See http://code.google.com/p/android/issues/detail?id=16135 and http://code.google.com/p/android/issues/detail?id=16149
+				*/
+				// e.printStackTrace(); // too many
+				return null;
+			}
         }
     }
 
