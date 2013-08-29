@@ -41,7 +41,7 @@
 package ae.com.sun.xml.bind.v2.model.impl;
 
 import java.lang.annotation.Annotation;
-import java.beans.Introspector;
+import com.googlecode.openbeans.Introspector;
 
 import ae.com.sun.xml.bind.v2.model.annotation.Locatable;
 import ae.com.sun.xml.bind.v2.model.core.PropertyInfo;

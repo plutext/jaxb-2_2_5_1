@@ -16,6 +16,7 @@
         <pathelement location="tools/lib/util/relaxngcc.jar"/>
         <pathelement location="tools/lib/util/xercesImpl.jar"/>
         <pathelement location="tools/lib/redist/activation.jar"/>
+        <pathelement location="tools/lib/redist/openbeans-1.0.jar"/>
         <pathelement location="tools/lib/util/ant.jar"/>
         <pathelement location="tools/lib/rebundle/compiler/xsom.jar"/>
         <pathelement location="tools/lib/rebundle/compiler/rngom.jar"/>

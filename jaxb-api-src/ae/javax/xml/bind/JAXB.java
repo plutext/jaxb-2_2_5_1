@@ -48,7 +48,7 @@ import javax.xml.transform.stream.StreamSource;
 
 import ae.javax.xml.bind.annotation.XmlRootElement;
 
-import java.beans.Introspector;
+import com.googlecode.openbeans.Introspector;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
